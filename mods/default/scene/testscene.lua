@@ -18,42 +18,100 @@ function scene:init()
 	grid.new(self.cam)
 	-- self.ui = require(modDir.."default/ui")
 
-	self.player=self.world:new_phys_obj(require(modDir.."default/ship/test_ship_large1"))
+	_ = self.world:new_obj("void seeker")
+	_:setXY(800,800)
+	self.player = _
 
-	_ = self.world:new_phys_obj(require(modDir.."default/ship/test_ship1"))
+	_ = self.world:new_obj("test_ship_L1")
+
+	_ = self.world:new_obj("test_ship1")
 	_:setXY(-400,-200)
 
-	_=self.world:new_phys_obj(require(modDir.."default/ship/test_ship1"))
+	_=self.world:new_obj("test_ship1")
 	_:setXY(400,0)
+
+
 	-- 安装推进器
-	_ = self.world:new_phys_obj(require(modDir.."default/device/test_thruster2"))
+	-- _ = self.world:new_obj(require(modDir.."default/device/test_thruster2"))
+	_ = self.world:new_obj("thruster XL")
 	_.host = self.player
+	_.dx,_.dy = _.host:toRealXY(127,219)
 	table.insert(self.player.slot,_)
 	-- 为推进器安装控制器
-	__ = base:new(require(modDir.."default/controller/power_ctrl"))
+	__ = classes:new("power_ctrl")
 	__:install_to(_)
-
 	table.insert(keyboard_hook,__)
+	-- 安装拖尾特效
+	___ = classes:new("void engine trail")
+	___:install_with_cam(_,self.cam)
+
+	_ = self.world:new_obj("thruster XL")
+	_.host = self.player
+	_.dx,_.dy = _.host:toRealXY(119,225)
+	table.insert(self.player.slot,_)
+	-- 为推进器安装控制器
+	__ = classes:new("power_ctrl")
+	__:install_to(_)
+	table.insert(keyboard_hook,__)
+	-- 安装拖尾特效
+	___ = classes:new("void engine trail")
+	___:install_with_cam(_,self.cam)
+
+	_ = self.world:new_obj("thruster XL")
+	_.host = self.player
+	_.dx,_.dy = _.host:toRealXY(250,219)
+	table.insert(self.player.slot,_)
+	-- 为推进器安装控制器
+	__ = classes:new("power_ctrl")
+	__:install_to(_)
+	table.insert(keyboard_hook,__)
+	-- 安装拖尾特效
+	___ = classes:new("void engine trail")
+	___:install_with_cam(_,self.cam)
+
+	_ = self.world:new_obj("thruster XL")
+	_.host = self.player
+	_.dx,_.dy = _.host:toRealXY(259,225)
+	table.insert(self.player.slot,_)
+	-- 为推进器安装控制器
+	__ = classes:new("power_ctrl")
+	__:install_to(_)
+	table.insert(keyboard_hook,__)
+	-- 安装拖尾特效
+	___ = classes:new("void engine trail")
+	___:install_with_cam(_,self.cam)
+
 
 	-- 安装动量轮
-	_ = self.world:new_phys_obj(require(modDir.."default/device/test_gyro_large"))
+	_ = classes:new("gyroscope_XL")
 	_.host = self.player
 	table.insert(self.player.slot,_)
 	-- 为动量轮安装控制器
-	__ = base:new(require(modDir.."default/controller/turn_ctrl"))
+	__ = classes:new(require(modDir.."default/controller/turn_ctrl"))
 	__:install_to(_)
 
 	table.insert(keyboard_hook,__)
 
 	-- 生成blink发生器
-	_ = base:new(require(modDir.."default/device/test_blink_X1"))
+	_ = classes:new(require(modDir.."default/device/test_blink_X1"))
 	_:install_to(self.player)
 	-- 为blink发生器安装控制器
-	__ = self.world:new_phys_obj(require(modDir.."default/controller/skill_ctrl"))
+	__ = self.world:new_obj(require(modDir.."default/controller/skill_ctrl"))
 	__:install_to(_)
 	table.insert(keyboard_hook,__)
 
+	-- -- 安装拖尾特效
+	-- _ = classes:new("void seeker trail")
+	-- _:install_with_cam(self.player,self.cam)
+	-- _:setDelta(_.host:toRealXY(189,95))
+
+	-- 安装粒子特效
+	_ = classes:new("void seeker particle")
+	_:install_to(self.player)
+	_:setDelta(_.host:toRealXY(_.dx,_.dy))
+
 	-- print(self.player.body:getMassData())
+
 end
 
 function scene:update(dt)
@@ -62,10 +120,16 @@ function scene:update(dt)
 end
 
 function scene:draw()
-	grid.draw()
+	-- grid.draw()
+	-- lg.push()
+	-- love.graphics.translate(500, 200)
+	-- love.graphics.scale(0.1)
+	-- self.world:draw()
+	-- lg.pop()
+	-- lg.setColor(255,255,255,255)
+	-- love.graphics.draw(self.player.tex_pic, 700, 300,self.player:getROT(),0.3,0.3,189,333)
 	self.cam:draw(function() self.world:draw() end)
-	-- love.graphics.setLineWidth(1.2)
-	self.cam:draw(function() debugdraw.draw(self.world.physics_world) end)
+	-- self.cam:draw(function() debugdraw.draw(self.world.physics_world) end)
 end
 
 function scene:wheelmoved(x,y)

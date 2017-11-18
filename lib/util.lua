@@ -13,14 +13,6 @@ color={}
 color.obj_line={255,255,255,200}
 color.obj_fill={255,255,255,50}
 
-function getVertsPositive(verts)
-
-end
-
-
-
-
-
 
 
 

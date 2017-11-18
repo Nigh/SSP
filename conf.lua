@@ -9,7 +9,7 @@ function love.conf(t)
 
 	t.window.title = "Somalia Space Program"
 	t.window.icon = nil
-	t.window.width = 1280
+	t.window.width = 1440
 	t.window.height = 720
 	t.window.borderless = false
 	t.window.resizable = false
@@ -17,7 +17,7 @@ function love.conf(t)
 	t.window.minheight = 1
 	t.window.fullscreen = false
 	t.window.fullscreentype = "desktop"
-	t.window.vsync = true 
+	t.window.vsync = false 
 	t.window.msaa = 0
 	t.window.display = 1
 	t.window.highdpi = false

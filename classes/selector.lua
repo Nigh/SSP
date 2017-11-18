@@ -42,8 +42,9 @@ end
 
 function selector:getXY()
 	if self.host then
-		local hx,hy = self.host:getXY()
-		return hx+self.dx,hy+self.dy
+		local x,y = self.host:getXY()
+		local dx,dy = math.axisRot(self.dx,self.dy,self.host:getROT())
+		return x+dx,y+dy
 	else
 		return 0,0
 	end

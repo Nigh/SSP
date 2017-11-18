@@ -1,15 +1,15 @@
 
 local device=class("device")
-
+device.tag = "device"
 
 function device:initialize()
-	self.slot = {}
-	self.dx = 0
-	self.dy = 0
-	self.host = nil
-	self.cd = 0
-	self.cd_set = 0
-	self.rot = 0
+	self.slot = self.slot or {}
+	self.dx = self.dx or 0
+	self.dy = self.dy or 0
+	self.host = self.host or nil
+	self.cd = self.cd or 0
+	self.cd_set = self.cd_set or 0
+	self.rot = self.rot or 0
 end
 
 function device:update(dt)
@@ -67,8 +67,10 @@ function device:delete(index)
 end
 
 function device:getXY()
-	if self.host and self.host.x and self.host.y then
-		return self.host.x+self.dx,self.host.y+self.dy
+	if self.host then
+		local x,y = self.host:getXY()
+		local dx,dy = math.axisRot(self.dx,self.dy,self.host:getROT())
+		return x+dx,y+dy
 	else
 		return 0,0
 	end

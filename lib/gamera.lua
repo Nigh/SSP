@@ -76,7 +76,6 @@ end
 function gamera.new(l,t,w,h)
 
   local sw,sh = love.graphics.getWidth(), love.graphics.getHeight()
-
   local cam = setmetatable({
     x=0, y=0,
     scale=1,

@@ -69,7 +69,7 @@ function world:init()
 	self.objs = {}
 	self.objs_index = {}
 	love.physics.setMeter(200)
-	self.physics_world = love.physics.newWorld(0, 0, true)
+	self.physics_world = love.physics.newWorld(0, 0, false)
 	self.physics_world:setCallbacks(collision.begin,collision.leave,collision.pre,collision.post)
 	physics.world = self.physics_world
 	return self
@@ -90,6 +90,7 @@ function world:add(obj)
 		end
 		body:destroy()
 
+		obj.ddx,obj.ddy = dx,dy
 		obj.body = physics.anyPolygon(obj.x,obj.y,obj.verts,nil,1)
 		-- obj.body = physics.newBox(obj.x,obj.y,20,20)
 		if obj.physic_init then obj:physic_init() end
@@ -101,9 +102,8 @@ function world:del(obj)
 	self.objs_index[obj]=nil
 end
 
-function world:new_phys_obj(b)
-	local _ = base:new(b)
-
+function world:new_obj(b)
+	local _ = classes:new(b)
 	if _.physic then
 		assert(_.verts, "physic objs need verts to create the shape.")
 	end

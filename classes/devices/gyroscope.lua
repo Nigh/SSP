@@ -1,15 +1,21 @@
 
 local gyro=class("gyro",device)
-
-gyro.name = "gyroscope"
 gyro.tag = "gyro"
-gyro.state = "standby"
-gyro.maxforce = 110
-gyro.force = 0
-gyro.breakforce = 3
-gyro.max_speed = 2.6	-- in radians/second.
 
-gyro.pipe = function(self,com,...)
+function gyro:initialize()
+	self.name = self.name or "gyroscope"
+	self.state = self.state or "standby"
+	self.maxforce = self.maxforce or 110
+	self.force = 0
+	self.slot = {}
+	self.breakforce = self.breakforce or 3
+	self.max_speed = self.max_speed or 2.6	-- in radians/second.
+	self.cd = 0
+	self.cd_set = 0
+end
+
+function gyro:pipe(com,...)
+	print(com)
 	arg={...}
 	if com=="left_on" then
 		self.host.body:setAngularDamping(0)
@@ -29,10 +35,12 @@ gyro.pipe = function(self,com,...)
 	end
 end
 
-gyro.update = function(self,dt)
+function gyro:update(dt)
 	device.update(self,dt)
-	self.host.body:applyTorque(self.force)
 	local vr=self.host.body:getAngularVelocity()
+	local force = self.force
+	if math.sign(vr)~=math.sign(force) then force = force*2 end
+	self.host.body:applyTorque(force)
 	if math.abs(vr)>self.max_speed then
 		self.host.body:applyTorque(-math.sign(vr)*self.maxforce)
 	end

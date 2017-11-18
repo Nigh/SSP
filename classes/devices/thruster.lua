@@ -1,14 +1,25 @@
 
 local thruster=class("thruster",device)
-thruster.name = "thruster"
+
 thruster.tag = "thruster"
-thruster.state = "standby"
-thruster.thrust = 20
-thruster.breakforce = 1
-thruster.cruise_speed = 700
-thruster.max_speed = 1000
 thruster.slot = {}
-thruster.pipe = function(self,com,...)
+
+function thruster:initialize()
+	self.name = self.name or "thruster"
+	self.state = self.state or "standby"
+	self.dx = self.dx or 0
+	self.dy = self.dy or 0
+	self.host = nil
+	self.cd = self.cd or 0
+	self.cd_set = self.cd_set or 0
+	self.rot = self.rot or 0
+	self.thrust = self.thrust or 20
+	self.breakforce = self.breakforce or 1
+	self.cruise_speed = self.cruise_speed or 700
+	self.max_speed = self.max_speed or 1000
+end
+
+function thruster:pipe(com,...)
 	arg={...}
 	if com=="throttle_on" then
 		self.state = "run"

@@ -1,10 +1,13 @@
 
 local objects = class('objects')
-objects.tag = "none"
+objects.tag = "obj"
 
 function objects:initialize(name)
 	self.name = name or "obj_name"
 	self.physic = true
+	self.scale = self.scale or 1
+	self.ddx = self.ddx or 0
+	self.ddy = self.ddy or 0
 	self.mass = self.mass or 10
 	self.rot = self.rot or -Pi
 	self.x = self.x or 0
@@ -13,6 +16,12 @@ function objects:initialize(name)
 	self.tex = self.tex or nil
 	self.slot = {}
 	self.linear_damping = 0.1		-- 线性阻尼，安装引擎会消除阻尼
+	if self.tex then
+		self.tex_pic=lg.newImage(self.path..self.tex,{mipmaps = true})
+		self.tex_draw=function(self)
+			lg.draw(self.tex_pic,0,0,0,self.scale,nil,self.ddx/self.scale,self.ddy/self.scale)
+		end
+	end
 end
 
 function objects:physic_init()
@@ -28,7 +37,7 @@ function objects:draw()
 	lg.rotate(self.rot)
 	lg.setColor(255, 255, 255, 255)
 	if self.tex then
-		-- TODO
+		self:tex_draw()
 	else
 		lg.outlinePolygon(self.verts,1,color.obj_fill,color.obj_line)
 	end
@@ -42,6 +51,12 @@ function objects:update(dt)
 		self.rot=self.body:getAngle()
 	end
 	for i,v in pairs(self.slot) do v:update(dt) end
+end
+
+-- 转换材质原始坐标到质心坐标
+function objects:toRealXY(x,y)
+	print(x,self.scale,self.ddx)
+	return x*self.scale-self.ddx,y*self.scale-self.ddy
 end
 
 function objects:setXY(x,y)

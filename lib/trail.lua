@@ -378,13 +378,21 @@ function trailObject:disable()
   return self
   
 end
-
 function trailObject:setWidth(width)
-  
-  self.width = width
+  if self.content.type == "image" then
+  elseif self.content.type == "rectangle" then
+    self.content.width=width
+  elseif self.content.type == "circle" then
+    self.content.radius=width
+  end
   return self
-  
 end
+-- function trailObject:setWidth(width)
+  
+--   self.width = width
+--   return self
+  
+-- end
 
 --[[ Aliases ]]--
 
