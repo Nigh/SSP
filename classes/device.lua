@@ -39,10 +39,8 @@ function device:_selector(name,...)
 end
 
 function device:selector(name,...)
-	local _=class(name,selector)
-	_:include(require("mods.default.selector."..name))
-	_:include({arg=arg,uid=uid(_.tag)})
-	local _=_:new(name)
+	local _ = classes:new(name,...)
+	_.uid=uid(_.tag)
 	self:install(_)
 	_:bind("mouse")
 	return

@@ -5,9 +5,8 @@ return{
 	cd_set = 5,
 	pipe=function(self,com,...)
 		arg={...}
-		print(com,unpack(arg))
 		if com=="call" then
-			self:selector("circle",300)
+			self:selector("circle",2500)
 		end
 		if com=="xy" then					-- 接收到xy命令，移动宿主至传输的坐标，并开始CD
 			self.host:setXY(arg[1],arg[2])

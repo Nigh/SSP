@@ -5,8 +5,8 @@ local path = ""
 local default_mods = "/mods/default"
 
 require ("lib.util")
-class=require ("lib.middleclass")
-gamestate= require ("lib.gamestate")
+class = require ("lib.middleclass")
+gamestate = require ("lib.gamestate")
 tween = require ("lib.tween")
 Anim = require ("lib.animation")
 suit = require "lib.suit"
@@ -20,12 +20,12 @@ classes = require "classes_loader"
 mods = require "mods_loader"
 
 function love.load()
+	print(gyro.install,emitter.install)
 	love.graphics.setBackgroundColor(10,5,14)
 	love.graphics.setLineWidth(4)
 	love.graphics.setLineStyle("smooth")
 	love.graphics.setLineJoin( "bevel" )
 	love.graphics.setDefaultFilter( "linear", "nearest", 2 )
-	-- love.graphics.setDefaultFilter( "linear", "linear", 4 )
 	gameState={}
 	for _,name in ipairs(love.filesystem.getDirectoryItems(default_mods.."/scene")) do
 		gameState[name:sub(1,-5)]=require(default_mods.."/scene."..name:sub(1,-5))

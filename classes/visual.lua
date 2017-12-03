@@ -8,6 +8,7 @@ function visual:initialize()
 	self.dx = self.dx or 0
 	self.dy = self.dy or 0
 	self.host = nil
+	self.coord_mode = self.coord_mode or "relative"	-- relative(to host) | absolute(to world)
 end
 
 function visual:update(dt)
@@ -31,6 +32,10 @@ end
 
 function visual:setDelta(dx,dy)
 	self.dx,self.dy = dx,dy
+end
+
+function visual:_del()
+	self.gc = true
 end
 
 return visual

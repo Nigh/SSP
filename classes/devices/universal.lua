@@ -1,18 +1,19 @@
 
 local universal=class("universal",device)
 
-universal.name = "universal"
 universal.tag = "uni"
-universal.state = ""
-universal.cd = 3
-universal.cd_set = 3
-universal.host = nil
-universal.slot = {}
+function universal:initialize()
+	device.initialize(self)
+	self.name = self.name or "universal"
+	self.state = ""
+	self.cd = self.cd or 3
+end
 
-universal.pipe = function(self,com,...)
+
+function universal:pipe(com,...)
 	arg={...}
 end
-universal.update = function(self,dt)
+function universal:update(dt)
 	device.update(self,dt)
 end
 

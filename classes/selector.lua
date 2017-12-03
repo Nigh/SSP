@@ -3,15 +3,15 @@ local selector=class("selector")
 
 selector.tag = "selector"
 
-function selector:initialize()
+function selector:initialize(name,...)
 	self.name = "default selector"
 	self.state = ""
-	self.host = nil
-	self.rot = 0
-	self.keyboard = {}
-	self.arg={}
-	self.radius = 500
-	self.slot = {}
+	self.host = self.host or nil
+	self.rot = self.rot or 0
+	self.keyboard = self.keyboard or {}
+	self.arg=self.arg or {...}
+	self.radius = self.radius or 500
+	self.slot = self.slot or {}
 	self.vmx=0		-- 光标有效位置
 	self.vmy=0
 	self.pmx=0		-- 光标物理位置
@@ -25,7 +25,7 @@ end
 -- function selector:update(self,dt)
 -- end
 
-selector.draw = function(self)
+function selector:draw()
 	love.graphics.setColor(255, 255, 255, 100)
 	love.graphics.circle("line", 0, 0, self.radius)
 	love.graphics.setColor(155, 255, 155, 200)

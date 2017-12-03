@@ -2,9 +2,9 @@ return {
 	name = "void seeker particle",
 	tag = "visual",
 	text = "this is a sample visual mod",
-	dx = 189,
+	dx = 184,
 	dy = 333,
-	particle = nil,
+	coord_mode = "relative",
 	initialize = function(self)
 		self.charge0 = lg.newParticleSystem(love.graphics.newImage( self.path.."circle.png" ),100)
 		self.charge0:setParticleLifetime(1.3,1.3)

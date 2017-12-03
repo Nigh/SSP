@@ -1031,6 +1031,15 @@ function physics.anyPolygon(x,y,verts,t,density)
 	return body
 end
 
+function physics.newRaySensor(range)
+	-- local body = love.physics.newBody(physics.world, 0, 0, "kinematic")
+	local body = love.physics.newBody(physics.world, 0, 0, "dynamic")
+	local shape = love.physics.newRectangleShape(1 , range)
+	local fixture = love.physics.newFixture(body, shape)
+	fixture:setSensor(true)
+	return body
+end
+
 -- function physics.newPolygon(x,y,verts,loop,t,density)
 -- 	local body = love.physics.newBody(physics.world, x, y, t or "dynamic")
 -- 	local shape = love.physics.newChainShape(loop, verts)

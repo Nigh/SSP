@@ -1,7 +1,10 @@
 return{
 	name = "circle",
 	tag = "selector",
-	radius = 500,
+	initialize=function(self,...)
+		selector.initialize(self,...)
+		self.radius = self.arg[1]
+	end,
 	mouseFunc=function(self,dt)
 		self.pmx, self.pmy = love.mouse.getXY()
 		local x,y = self:getXY()

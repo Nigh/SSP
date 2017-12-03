@@ -8,9 +8,10 @@ local world={collision=collision}
 local function begin(a,b,coll)
 	local objA=a:getBody():getUserData()
 	local objB=b:getBody():getUserData()
-	if objA.tag == "ship" and objB.tag == "ship" then
-		print("ship hit ship")
-		return
+	print(objA.tag,"hit",objB.tag)
+	if objA.tag == "laser" then
+		print(coll:getPositions())
+		print(coll:getNormal())
 	end
 	-- 	coll:setEnabled(false)
 	-- 	return 

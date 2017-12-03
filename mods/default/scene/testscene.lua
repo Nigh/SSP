@@ -14,6 +14,7 @@ function scene:init()
 
 	self.world = require(rootDir.."core/world")
 	self.cam = camera.new(-10000,-9000,20000,18000)
+	global_camera = self.cam
 	self.zoom = 1
 	grid.new(self.cam)
 	-- self.ui = require(modDir.."default/ui")
@@ -110,8 +111,18 @@ function scene:init()
 	_:install_to(self.player)
 	_:setDelta(_.host:toRealXY(_.dx,_.dy))
 
-	-- print(self.player.body:getMassData())
+	-- 安装激光发射器
+	_ = classes:new("laser_X1")
+	print(_.install_to)
+	_:install_to(self.player)
+	-- 为激光器安装控制器
+	__ = self.world:new_obj("fire_ctrl")
+	__:install_to(_)
+	table.insert(keyboard_hook,__)
 
+
+	-- print(self.player.body:getMassData())
+	love.keyboard.setTextInput( true, 10, 100, 100, 20 )
 end
 
 function scene:update(dt)
@@ -129,7 +140,7 @@ function scene:draw()
 	-- lg.setColor(255,255,255,255)
 	-- love.graphics.draw(self.player.tex_pic, 700, 300,self.player:getROT(),0.3,0.3,189,333)
 	self.cam:draw(function() self.world:draw() end)
-	-- self.cam:draw(function() debugdraw.draw(self.world.physics_world) end)
+	self.cam:draw(function() debugdraw.draw(self.world.physics_world) end)
 end
 
 function scene:wheelmoved(x,y)
@@ -150,5 +161,14 @@ function scene:keyreleased( key, scancode )
 		if v[key] and v[key].release then v[key].release(v) end
 	end
 end
+
+function scene:textedited( text, start, length )
+	print(text, start, length)
+end
+
+function love.textinput( text )
+	print(text)
+end
+
 
 return scene
