@@ -41,7 +41,7 @@
 
 其中，所有视觉元素均由MOD提供。无MOD的视觉效果如下图。
 
-![](docs\nomod.png)
+![](docs/nomod.png)
 
 自机属于默认可见元素。
 
@@ -49,39 +49,38 @@
 
 下图为仅安装光学视觉MOD的效果图。
 
-![](docs\opt_vis.png)
+![](docs/opt_vis.png)
 
 
 
 下图为仅安装光学雷达的效果图。
 
-![](docs\opt_radar.png)
+![](docs/opt_radar.png)
 
 
 
 下图为仅安装红外视觉MOD的效果图。
 
-![](docs\ir_vis.png)
+![](docs/ir_vis.png)
 
 
 
 下图为安装了光学雷达与火控雷达的效果图。
 
-![](docs\opt+fc.png)
+![](docs/opt+fc.png)
 
 
 
 ## 交易
 
-![](docs\trade.png)
+![](docs/trade.png)
 
 
 
 ## 工坊
 
-![](docs\ship_engineering.png)
+![](docs/ship_engineering.png)
 
-####  
 
 # 设定(detail)
 
